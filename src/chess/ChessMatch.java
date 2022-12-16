@@ -39,14 +39,14 @@ public class ChessMatch {
 	private void initialSetup() {
 		
 		//White Pieces
-		PlaceNewPiece('e', 8, new King(board, Color.WHITE));
-		PlaceNewPiece('a', 8, new Rook(board, Color.WHITE));
-		PlaceNewPiece('h', 8, new Rook(board, Color.WHITE));
+		PlaceNewPiece('e', 1, new King(board, Color.WHITE));
+		PlaceNewPiece('a', 1, new Rook(board, Color.WHITE));
+		PlaceNewPiece('h', 1, new Rook(board, Color.WHITE));
 		
 		//Black Pieces
-		PlaceNewPiece('d', 1, new King(board, Color.BLACK));
-		PlaceNewPiece('a', 1, new Rook(board, Color.BLACK));
-		PlaceNewPiece('h', 1, new Rook(board, Color.BLACK));
+		PlaceNewPiece('d', 8, new King(board, Color.BLACK));
+		PlaceNewPiece('a', 8, new Rook(board, Color.BLACK));
+		PlaceNewPiece('h', 8, new Rook(board, Color.BLACK));
 	}
 
 }

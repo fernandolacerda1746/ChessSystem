@@ -2,14 +2,18 @@ package chess.pieces;
 
 import boardgame.Board;
 import boardgame.Position;
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.Color;
 
 public class Pawn extends ChessPiece{
+	
+	private ChessMatch chessMatch;
 
-	public Pawn(Board board, Color color) {
+	public Pawn(Board board, Color color, ChessMatch chessMatch) {
 		
 		super(board, color);
+		this.chessMatch = chessMatch;
 		
 	}
 	
@@ -41,7 +45,7 @@ public class Pawn extends ChessPiece{
 			//Initial Movement of Pawn
 			p.setValues(position.getRow() - 2, position.getColumn());
 			Position p2 = new Position(position.getRow() - 1, position.getColumn()); //Auxiliar position for detection any piece in the way of the Pawn
-			if(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p) && getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2)) {
+			if(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p) && getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2) && getMoveCount() == 0) {
 				
 				mat[p.getRow()][p.getColumn()] = true;
 				
@@ -61,7 +65,28 @@ public class Pawn extends ChessPiece{
 				
 				mat[p.getRow()][p.getColumn()] = true;
 				
-			}				
+			}
+			
+			//Special Move: En Passant
+			if(position.getRow() == 3) {
+				
+				//Special Move: En Passant Left Diagonal
+				Position left = new Position(position.getRow(), position.getColumn() - 1);
+				if(getBoard().positionExists(left) && isThereOpponentPiece(left) && getBoard().piece(left) == chessMatch.getEnPassantVulnerable()) {
+					
+					mat[left.getRow() - 1][left.getColumn()] = true;
+					
+				}
+				
+				//Special Move: En Passant Right Diagonal
+				Position right = new Position(position.getRow(), position.getColumn() + 1);
+				if(getBoard().positionExists(right) && isThereOpponentPiece(right) && getBoard().piece(right) == chessMatch.getEnPassantVulnerable()) {
+					
+					mat[right.getRow() - 1][right.getColumn()] = true;
+					
+				}
+				
+			}
 			
 		}else {
 			
@@ -78,7 +103,7 @@ public class Pawn extends ChessPiece{
 			//Initial Movement of Pawn
 			p.setValues(position.getRow() + 2, position.getColumn());
 			Position p2 = new Position(position.getRow() + 1, position.getColumn()); //Auxiliar position for detection any piece in the way of the Pawn
-			if(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p) && getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2)) {
+			if(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p) && getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2) && getMoveCount() == 0) {
 				
 				mat[p.getRow()][p.getColumn()] = true;
 				
@@ -98,7 +123,28 @@ public class Pawn extends ChessPiece{
 				
 				mat[p.getRow()][p.getColumn()] = true;
 				
-			}				
+			}
+			
+			//Special Move: En Passant
+			if(position.getRow() == 4) {
+				
+				//Special Move: En Passant Left Diagonal
+				Position left = new Position(position.getRow(), position.getColumn() - 1);
+				if(getBoard().positionExists(left) && isThereOpponentPiece(left) && getBoard().piece(left) == chessMatch.getEnPassantVulnerable()) {
+					
+					mat[left.getRow() + 1][left.getColumn()] = true;
+					
+				}
+				
+				//Special Move: En Passant Right Diagonal
+				Position right = new Position(position.getRow(), position.getColumn() + 1);
+				if(getBoard().positionExists(right) && isThereOpponentPiece(right) && getBoard().piece(right) == chessMatch.getEnPassantVulnerable()) {
+					
+					mat[right.getRow() + 1][right.getColumn()] = true;
+					
+				}
+				
+			}
 			
 		}
 		
